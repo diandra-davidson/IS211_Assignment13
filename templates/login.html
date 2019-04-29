@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Quiz CMS</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Sintony:400,700' rel='stylesheet' type='text/css'>
+
+	<style type="text/css">
+      body
+      {
+        background-color:#AAA;
+      }
+
+      h1
+      {
+        font-size:28px;
+        margin-top:0;
+        font-family:Arial, sans-serif;
+        text-shadow:-1px 0 1px #292929;
+        letter-spacing:2px;
+        text-decoration:none;
+        color:#000;
+      }
+
+      #container
+      {
+        width:525px;
+        height:200px;
+        text-align:center;
+        background-color: #FFF;
+        background-position:center;
+        background-repeat:no-repeat;
+        border-radius:7%;
+        border:1px solid #DDD;
+        margin:90px auto auto;
+        padding:80px 0;
+      }
+
+      .lead
+      {
+        background-color:rgba(255,255,255,0.6);
+        border-radius:3px;
+        box-shadow:rgba(0,0,0,0.2) 0 1px 3px;
+        font-family:Sintony, sans-serif;
+      }
+
+      input[type=text]
+      {
+      padding: 6px 10px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      }
+
+      select
+      {
+      padding: 6px 10px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      }
+
+      body
+      {
+        font-family: arial, sans-serif;
+      }
+
+      table
+      {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        background-color:#FFF;
+      }
+
+      td, th
+      {
+        border: 1px solid #a9a9a9;
+        text-align: left;
+        padding: 8px;
+      }
+
+      tr:nth-child(even)
+      {
+        background-color: #dddddd;
+      }
+	</style>
+</head>
+<body>
+<div id="container">
+    <h1>Log into Student Quiz CMS</h1>
+    <div id="loginform">
+        <form action="/login" method="post">
+            <input type="text" name="username" placeholder="Username" required="required"></input>
+            <input type="text" name="password" placeholder="Password" required="required"></input>
+            <input type="submit" value="Log In"></input>
+        </form>
+    </div>
+</div>
+</body>
+</html>
