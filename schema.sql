@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS students;
 DROP TABLE IF EXISTS quizzes;
 DROP TABLE IF EXISTS scores;
+DROP TABLE IF EXISTS teachers;
 
 CREATE TABLE students (
   student_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -22,3 +23,11 @@ CREATE TABLE scores (
   FOREIGN KEY (student_id) REFERENCES students(student_id),
   FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id)
 );
+
+CREATE TABLE teachers (
+  teacher_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  first_name TEXT,
+  last_name TEXT,
+  username TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL
+)

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Student Quiz CMS Dashboard{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div id="dashboard">
+        <div id="classinfo">
+            <h3>Student Roster</h3>
+            <table>
+                <th>Student ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                {% for student in student_roster %}
+                <tr>
+                    <td>{{ student.0 }}</td>
+                    <td>{{ student.1}}</td>
+                    <td>{{ student.2 }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <h3>Class Quizzes</h3>
+            <table>
+                <th>Quiz ID</th>
+                <th>Subject</th>
+                <th>Num. of Questions</th>
+                <th>Date</th>
+                {% for quiz in quiz_roster %}
+                <tr>
+                    <td>{{ quiz.0 }}</td>
+                    <td>{{ quiz.1}}</td>
+                    <td>{{ quiz.2 }}</td>
+                    <td>{{ quiz.3 }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}
