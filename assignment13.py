@@ -58,7 +58,10 @@ def get_db():
 
 @app.route('/',  methods=['GET'])
 def home_pg():
-    return render_template('auth/login.html')
+    if 'logged_in' in session:
+        return redirect('/dashboard')
+    else:
+        return render_template('auth/login.html')
 
 
 @app.route('/dashboard',  methods=['GET'])
