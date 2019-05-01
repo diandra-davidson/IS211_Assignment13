@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Add a Student - Student Quiz CMS{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div id="addstudent">
+        <h3>Add a Student To The Class</h3>
+        <form action="/student/add" method="post">
+            <input type="text" name="firstname" placeholder="First Name" required="required"></input>
+            <input type="text" name="lastname" placeholder="Last Name" required="required"></input>
+            <input type="submit" value="Add Student"></input>
+        </form>
+    </div>
+{% endblock %}

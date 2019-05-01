@@ -7,6 +7,7 @@
 
 import sqlite3 as lite
 import sys
+import re
 import os
 from flask import (Flask, render_template, request, redirect,
                    url_for, current_app, g, flash, session)
@@ -98,8 +99,6 @@ def login():
             for row in database.execute('SELECT * FROM quizzes'):
                 quiz_roster.append((row))
 
-            print quiz_roster
-
             return redirect('/dashboard')
 
         flash(error)
@@ -138,6 +137,48 @@ def register():
 
     elif request.method == 'GET':
         return render_template('auth/register.html')
+
+
+@app.route('/student/add',  methods=['GET', 'POST'])
+def addstudent():
+    if 'logged_in' in session:
+        if request.method == 'GET':
+            return render_template('cms/add_student.html')
+        elif request.method == 'POST':
+            firstname = request.form['firstname']
+            lastname = request.form['lastname']
+            database = get_db()
+            error = None
+
+            if not firstname:
+                error = 'First name is required.'
+            elif not lastname:
+                error = 'Last name is required.'
+
+            if re.search(r'[!@#$%^&*(),.?":{}|<>]', firstname):
+                error = "Invalid characters used. " \
+                        "Please do not include special characters."
+            elif re.search(r'[!@#$%^&*(),.?":{}|<>]', lastname):
+                error = "Invalid characters used. " \
+                        "Please do not include special characters."
+
+            if error is None:
+                database.execute(
+                    'INSERT INTO students (first_name, last_name) '
+                    'VALUES (?, ?)', (firstname, lastname))
+                database.commit()
+
+                for row in database.execute('SELECT * FROM students '
+                                            'WHERE first_name=? AND '
+                                            'last_name=?;',
+                                            (firstname, lastname)):
+                    student_roster.append((row))
+                return redirect('/dashboard')
+
+        flash(error)
+        return render_template('cms/add_student.html')
+    else:
+        return redirect('/')
 
 
 if __name__ == '__main__':

@@ -10,6 +10,8 @@
       body
       {
         background-color:#AAA;
+        font-size: 12px;
+        font-family: arial, sans-serif;
       }
 
       h1
@@ -64,11 +66,6 @@
       box-sizing: border-box;
       }
 
-      body
-      {
-        font-family: arial, sans-serif;
-      }
-
       table
       {
         font-family: arial, sans-serif;
@@ -90,6 +87,21 @@
       {
         background-color: #dddddd;
       }
+
+      a
+      {
+        appearance: button; /* CSS3 */
+        padding: 10px;
+        margin: 8px;
+        text-decoration: none;
+        font-size: 12px;
+        font-family: arial, sans-serif;
+        -webkit-appearance: button; /* Safari and Chrome */
+        -moz-appearance: button; /* Firefox */
+        -ms-appearance: button; /* Internet Explorer */
+        -o-appearance: button; /* Opera */
+        cursor: default;
+      }
 	</style>
 </head>
 <body>
@@ -98,7 +110,7 @@
     {% block header %}{% endblock %}
   </header>
   {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
+    <div class="flash" style="color: red;">{{ message }}</div>
   {% endfor %}
   {% block content %}{% endblock %}
 </div>
