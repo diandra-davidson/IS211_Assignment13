@@ -20,7 +20,7 @@ student_roster = []
 quiz_roster = []
 
 student = (('John', 'Smith'))
-quiz = (('Python Basics', 5, 'February, 5th, 2015'))
+quiz = (('Python Basics', 5, '2019-02-05'))
 score = ((1, 1, 85))
 
 
@@ -177,6 +177,50 @@ def addstudent():
 
         flash(error)
         return render_template('cms/add_student.html')
+    else:
+        return redirect('/')
+
+
+@app.route('/quiz/add',  methods=['GET', 'POST'])
+def addquiz():
+    if 'logged_in' in session:
+        if request.method == 'GET':
+            return render_template('cms/add_quiz.html')
+        elif request.method == 'POST':
+            subject = request.form['subject']
+            num_of_questions = request.form['num_of_questions']
+            quiz_date = request.form['date']
+            database = get_db()
+            error = None
+
+            if not subject:
+                error = 'Subject is required.'
+            elif not num_of_questions:
+                error = 'Number of questions is required.'
+            elif not quiz_date:
+                error = 'Quiz date is required.'
+
+            if re.search(r'[!@#$%^&*(),.?":{}|<>]', subject):
+                error = "Invalid characters used in Subject. " \
+                        "Please do not include special characters."
+
+            if error is None:
+                database.execute(
+                    'INSERT INTO quizzes (subject, num_of_questions, date) '
+                    'VALUES (?, ?, ?)', (subject, num_of_questions, quiz_date))
+                database.commit()
+
+                for row in database.execute('SELECT * FROM quizzes '
+                                            'WHERE subject=? AND '
+                                            'num_of_questions=? AND '
+                                            'date=?;',
+                                            (subject, num_of_questions,
+                                             quiz_date)):
+                    quiz_roster.append((row))
+                return redirect('/dashboard')
+
+        flash(error)
+        return render_template('cms/add_quiz.html')
     else:
         return redirect('/')
 
