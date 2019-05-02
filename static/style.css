@@ -31,7 +31,7 @@ h1
     padding:4px 4px 4px 4px;
   }
 
-#loginform, #registerform, #addstudent, #addquiz, #classinfo
+#loginform, #registerform, #addstudent, #addquiz, #classinfo, #addscore
   {
     overflow: auto;
     padding: 0px 20px 20px 20px;
@@ -51,12 +51,12 @@ input[type=text]
     box-sizing: border-box;
   }
 
-      select
-      {
-      padding: 6px 10px;
-      margin: 8px 0;
-      box-sizing: border-box;
-      }
+select
+  {
+    padding: 1px 0px 1px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }
 
 table
   {

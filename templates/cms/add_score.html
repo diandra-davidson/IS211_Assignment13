@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Add a Score - Student Quiz CMS{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div id="addscore">
+        <h3>Add a Student's Quiz Score</h3>
+        <form action="/results/add" method="post">
+            <select name="studentList" id="studentList" required>
+                {% for student in student_list %}
+                <option value="{{ student.0 }}">{{ student.1 }} {{ student.2 }}</option>
+                {% endfor %}
+            </select>
+            <select name="quizList" id="quizList" required>
+                {% for quiz in quiz_list %}
+                <option value = "{{ quiz.0 }}">{{ quiz.1 }}</option>
+                {% endfor %}
+            </select>
+            <input type="number" name="score" placeholder="Quiz Score" required></input>
+            <input type="submit" value="Add Quiz Result"></input>
+        </form>
+    </div>
+{% endblock %}
