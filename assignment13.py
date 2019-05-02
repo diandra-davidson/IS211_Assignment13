@@ -97,10 +97,12 @@ def login():
             session['user_id'] = user['teacher_id']
 
             for row in database.execute('SELECT * FROM students'):
-                student_roster.append((row))
+                if row not in student_roster:
+                    student_roster.append((row))
 
             for row in database.execute('SELECT * FROM quizzes'):
-                quiz_roster.append((row))
+                if row not in quiz_roster:
+                    quiz_roster.append((row))
 
             return redirect('/dashboard')
 
@@ -226,6 +228,34 @@ def addquiz():
         return render_template('cms/add_quiz.html')
     else:
         return redirect('/')
+
+
+@app.route('/student/<path:student_id>', methods=['GET'])
+def viewstudent(student_id):
+    student_data = []
+    student_name = []
+    id = student_id
+    database = get_db()
+
+    for row in database.execute('SELECT first_name, last_name FROM students '
+                                'WHERE student_id=?;', id):
+        if row not in student_name:
+            student_name.append((row))
+
+    for row in database.execute('SELECT quizzes.quiz_id,'
+                                'quizzes.subject, '
+                                'quizzes.num_of_questions, '
+                                'quizzes.date, '
+                                'scores.score FROM quizzes '
+                                'JOIN scores using (quiz_id) '
+                                'WHERE student_id=?;', id):
+        if row not in student_data:
+            student_data.append((row))
+
+    return render_template('cms/student.html',
+                           student_id=student_id,
+                           student_data=student_data,
+                           student_name=student_name)
 
 
 if __name__ == '__main__':

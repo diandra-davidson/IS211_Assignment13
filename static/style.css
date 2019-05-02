@@ -80,7 +80,7 @@ tr:nth-child(even)
     background-color: #dddddd;
   }
 
-a
+a.button:link, a.button:visited
   {
     appearance: button; /* CSS3 */
     padding: 10px;
@@ -93,4 +93,37 @@ a
     -ms-appearance: button; /* Internet Explorer */
     -o-appearance: button; /* Opera */
     cursor: default;
+  }
+
+a.button:hover, a.button:active
+  {
+    appearance: button; /* CSS3 */
+    padding: 10px;
+    margin: 8px;
+    text-decoration: none;
+    color: gray;
+    font-size: 12px;
+    font-family: arial, sans-serif;
+    -webkit-appearance: button; /* Safari and Chrome */
+    -moz-appearance: button; /* Firefox */
+    -ms-appearance: button; /* Internet Explorer */
+    -o-appearance: button; /* Opera */
+    cursor: default;
+  }
+
+a.viewstudent:link, a.viewstudent:visited
+  {
+    appearance: none;
+    text-decoration: none;
+    font-size: 12px;
+    font-family: arial, sans-serif;
+  }
+
+a.viewstudent:hover, a.viewstudent:active
+  {
+    appearance: none;
+    color: gray;
+    text-decoration: underline;
+    font-size: 12px;
+    font-family: arial, sans-serif;
   }

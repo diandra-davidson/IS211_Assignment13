@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Student Quiz CMS Dashboard{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div id="dashboard">
+        <div id="classinfo">
+            {% for name in student_name %}
+            <h3>View {{ name.0 }} {{ name.1 }}'s Scores</h3>
+            {% endfor %}
+            {% if student_data|length %}
+            <table>
+                <th>Quiz ID</th>
+                <th>Subject</th>
+                <th>Num. of Questions</th>
+                <th>Date</th>
+                <th>Score</th>
+                {% for score in student_data %}
+                <tr>
+                    <td>{{ score.0 }}</td>
+                    <td>{{ score.1 }}</td>
+                    <td>{{ score.2 }}</td>
+                    <td>{{ score.3 }}</td>
+                    <td>{{ score.4 }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            No results
+            {% endif %}
+        </div>
+        <span><a href="/dashboard" class="button">Back to Dashboard</a></span>
+    </div>
+{% endblock %}

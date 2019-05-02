@@ -12,11 +12,13 @@
                 <th>Student ID</th>
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th>See Student Grades</th>
                 {% for student in student_roster %}
                 <tr>
                     <td>{{ student.0 }}</td>
-                    <td>{{ student.1}}</td>
+                    <td>{{ student.1 }}</td>
                     <td>{{ student.2 }}</td>
+                    <td><a href="/student/{{student['student_id']}}" class="viewstudent">View</a></td>
                 </tr>
                 {% endfor %}
             </table>
@@ -36,7 +38,7 @@
                 {% endfor %}
             </table>
         </div>
-        <span><a href="/student/add">Add a Student</a></span>
-        <span><a href="/quiz/add">Add a Quiz</a></span>
+        <span><a href="/student/add" class="button">Add a Student</a></span>
+        <span><a href="/quiz/add" class="button">Add a Quiz</a></span>
     </div>
 {% endblock %}
