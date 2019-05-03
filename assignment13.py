@@ -3,10 +3,7 @@
 """Flask application using sqlite3 database"""
 
 
-#export FLASK_ENV=development
-
 import sqlite3 as lite
-import sys
 import re
 import os
 from flask import (Flask, render_template, request, redirect,
@@ -18,34 +15,6 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24).encode('hex')
 student_roster = []
 quiz_roster = []
-
-student = (('John', 'Smith'))
-quiz = (('Python Basics', 5, '2019-02-05'))
-score = ((1, 1, 85))
-
-
-#try:
-#    con = lite.connect('hw13.db')
-#    cur = con.cursor()
-#
-#    cur.execute("INSERT INTO students(first_name, last_name) "
-#                "VALUES(?, ?)", student)
-#    cur.execute("INSERT INTO quizzes(subject, num_of_questions, date) "
-#                "VALUES(?, ?, ?)", quiz)
-#    cur.execute("INSERT INTO scores(student_id, quiz_id, score) "
-#                "VALUES(?, ?, ?)", score)
-#
-#    con.commit()
-#
-#except lite.Error, e:
-#    if con:
-#        con.rollback()
-#    print "Error {}".format(e.args[0])
-#    sys.exit(1)
-#
-#finally:
-#    if con:
-#        con.close()
 
 
 def get_db():
@@ -284,10 +253,18 @@ def add_score():
         quiz = request.form['quizList']
         score = request.form['score']
         database = get_db()
-        message = "Quiz added successfully!"
+        message = None
 
-        database.execute('INSERT INTO scores(student_id, quiz_id, score '
-                         'VALUES(?, ?, ?);', student, quiz, score)
+        duplicates = database.execute('SELECT * FROM scores WHERE student_id=? AND '
+                            'quiz_id=?;', (student, quiz))
+
+        if duplicates.fetchone() is None:
+            database.execute('INSERT INTO scores(student_id, quiz_id, score) '
+                             'VALUES(?, ?, ?);', (student, quiz, score))
+            database.commit()
+            message = "Quiz added successfully!"
+        else:
+            message = "Duplicate quiz for this student found."
 
         flash(message)
 
