@@ -10,4 +10,11 @@ This week's assignment includes incorporating a sqlite3 database into the web ap
 * Allow the teacher to view and add quizzes in the class
 * Allow the teacher to view and add student’s quiz results
 
+### Modules Required
+
+* sqlite3
+* Jinja2
+* flask
+* werkzeug
+
 ***(Note)*** This application assumes there is only one teacher and one class. It supports multiple accounts, but all will view the same class and quiz roster.
